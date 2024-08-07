@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/kajiLabTeam/mr-platform-user-management-server/controller"
 	_ "github.com/lib/pq"
 )
 
@@ -21,7 +22,9 @@ func Init() {
 		c.String(http.StatusOK, "Hello World!!")
 	})
 
-	// サーバーの起動状態を表示しながら、ポート8084でサーバーを起動する
+	r.POST("/api/user/create", controller.CreateUser)
+
+	// サーバーの起動状態を表示
 	if err := r.Run("0.0.0.0:8000"); err != nil {
 		fmt.Println("サーバーの起動に失敗しました:", err)
 	} else {
