@@ -37,5 +37,5 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{"user_id": user.UserId})
+	c.JSON(http.StatusCreated, user)
 }

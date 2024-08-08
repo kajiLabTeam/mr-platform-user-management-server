@@ -23,6 +23,8 @@ func Init() {
 	})
 
 	r.POST("/api/user/create", controller.CreateUser)
+	r.POST("/api/content/set", controller.SetContents)
+	r.GET("/api/content/ids", controller.GetContents)
 
 	// サーバーの起動状態を表示
 	if err := r.Run("0.0.0.0:8000"); err != nil {
