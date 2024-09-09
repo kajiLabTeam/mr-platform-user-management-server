@@ -16,7 +16,7 @@ func InsertContent(userId string, createdId string, contentId string) (bool, err
 
 func GetContents(userId string) (common.ContentIds, error) {
 	// 最新のcreated_idを持つ content_id を取得
-	rows, err := db.Query("SELECT content_id FROM user_contents WHERE user_id = $1 ORDER BY created_id DESC LIMIT 1", userId)
+	rows, err := db.Query("SELECT content_id FROM user_contents WHERE created_id = (SELECT MAX(created_id) FROM user_contents WHERE user_id = $1);", userId)
 	if err != nil {
 		return common.ContentIds{}, err
 	}
