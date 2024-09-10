@@ -16,12 +16,12 @@ func CreateUser(c *gin.Context) {
 	}
 
 	// ユーザーが存在するか確認
-	isExist, err := model.IsExistUser(user.UserId)
+	exist, err := model.ExistUser(user.UserId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	if isExist {
+	if exist {
 		c.JSON(http.StatusConflict, gin.H{"error": "User already exists"})
 		return
 	}
