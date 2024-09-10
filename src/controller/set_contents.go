@@ -22,12 +22,12 @@ func SetContents(c *gin.Context) {
 		return
 	}
 
-	isExistUser, err := model.IsExistUser(req.UserId)
+	existUser, err := model.ExistUser(req.UserId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	if !isExistUser {
+	if !existUser {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
@@ -79,4 +79,3 @@ func SetContents(c *gin.Context) {
 
 // GRANT ALL PRIVILEGES ON TABLE users TO mr_platform_users;
 // GRANT ALL PRIVILEGES ON TABLE user_contents TO mr_platform_users;
-

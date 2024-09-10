@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/kajiLabTeam/mr-platform-user-management-server/common"
-	"github.com/kajiLabTeam/mr-platform-user-management-server/util"
+	"github.com/kajiLabTeam/mr-platform-user-management-server/model"
 )
 
 func GetContents(c *gin.Context) {
@@ -14,7 +14,7 @@ func GetContents(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	contentIds, err := util.GetContents(req.UserId)
+	contentIds, err := model.GetContents(req.UserId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

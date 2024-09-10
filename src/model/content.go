@@ -2,7 +2,6 @@ package model
 
 import (
 	"github.com/google/uuid"
-	"github.com/kajiLabTeam/mr-platform-user-management-server/common"
 )
 
 func InsertContent(userId string, createdId string, contentId string) (bool, error) {
@@ -14,21 +13,21 @@ func InsertContent(userId string, createdId string, contentId string) (bool, err
 	return true, nil
 }
 
-func GetContents(userId string) (common.ContentIds, error) {
+func GetContents(userId string) ([]string, error) {
 	// 最新のcreated_idを持つ content_id を取得
 	rows, err := db.Query("SELECT content_id FROM user_contents WHERE created_id = (SELECT MAX(created_id) FROM user_contents WHERE user_id = $1);", userId)
 	if err != nil {
-		return common.ContentIds{}, err
+		return nil, err
 	}
 	defer rows.Close()
 
-	var contentIds common.ContentIds
+	var contentIds []string
 	for rows.Next() {
 		var contentId string
 		if err := rows.Scan(&contentId); err != nil {
-			return common.ContentIds{}, err
+			return nil, err
 		}
-		contentIds.ContentIds = append(contentIds.ContentIds, contentId)
+		contentIds = append(contentIds, contentId)
 	}
 	return contentIds, nil
 }
