@@ -50,32 +50,9 @@ func SetContents(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, contenIds)
+	res := common.ResponseSetContents{
+		ContentIds: contenIds,
+	}
+
+	c.JSON(http.StatusCreated, res)
 }
-
-// CREATE USER mr_platform_contents WITH PASSWORD 'mr_platform_contents';
-// CREATE USER mr_platform_users WITH PASSWORD 'mr_platform_users';
-
-// \c mr_platform;
-
-// -- Create Users Table
-// CREATE TABLE users (
-//     id VARCHAR(36) PRIMARY KEY,
-//     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-//     updated_at TIMESTAMP WITH TIME ZONE,
-//     deleted_at TIMESTAMP WITH TIME ZONE
-// );
-
-// -- Create User Contents Table
-// CREATE TABLE user_contents (
-//     id VARCHAR(36) PRIMARY KEY,
-//     user_id VARCHAR(36) REFERENCES users(id),
-//     created_id VARCHAR(36) NOT NULL,
-//     content_id VARCHAR(36) REFERENCES contents(id),
-//     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-//     updated_at TIMESTAMP WITH TIME ZONE,
-//     deleted_at TIMESTAMP WITH TIME ZONE
-// );
-
-// GRANT ALL PRIVILEGES ON TABLE users TO mr_platform_users;
-// GRANT ALL PRIVILEGES ON TABLE user_contents TO mr_platform_users;
