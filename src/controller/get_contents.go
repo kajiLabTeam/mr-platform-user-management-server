@@ -20,5 +20,9 @@ func GetContents(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, contentIds)
+	res := common.ResponseSetContents{
+		ContentIds: contentIds,
+	}
+
+	c.JSON(http.StatusOK, res)
 }
